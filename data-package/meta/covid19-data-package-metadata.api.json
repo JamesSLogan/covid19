@@ -4,5 +4,6 @@
     "version": "1.0.0",
     "sourceFiles": "./datasets/csv",
     "schema": "frictionless-data",
-    "status": "DRAFT"
+    "status": "DRAFT",
+    "data-package": "https://github.com/cagov/covid19/blob/master/data-package.json"
 }

@@ -3,5 +3,6 @@
     "description": "Dataset information for charts and other UI elements used on covid19.ca.gov",
     "version": "1.0.0",
     "sourceFiles": "./datasets/csv",
-    "schema": "frictionless-data"
+    "schema": "frictionless-data",
+    "data-package": "https://github.com/cagov/covid19/blob/master/data-package.json"
 }

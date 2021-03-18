@@ -1,0 +1,61 @@
+{
+  "name": "daily-stats-v2.metrics",
+  "label": "",
+  "data_service": "Snowflake",
+  "data_pipeline": "",
+  "spatial_coverage": "Statewide",
+  "granularity": "Cumulative",
+  "source": "",
+  "change": "",
+  "data_suppression_policy": "",
+  "temporal_coverage": "",
+  "update_frequency": "Daily",
+  "data_warehouse": "",
+  "database": "COVID.PRODUCTION",
+  "table": "VW_CDPH_COUNTY_AND_STATE_TIMESERIES_METRICS ",
+  "table_url": "",
+  "data_query": "https://github.com/cagov/Cron/blob/master/common/SQL/CDT_COVID/Daily-stats-v2/Metrics.sql",
+  "data_schema": "https://github.com/cagov/Cron/blob/master/common/SQL/CDT_COVID/Daily-stats-v2/schema/schema.json",
+  "tests": "",
+  "build_script": "https://github.com/cagov/Cron/tree/master/CovidStateDashboardV2",
+  "data_location": "https://files.covid19.ca.gov/data/daily-stats-v2.json",
+  "data_location_(development)": "",
+  "review_data_location": "",
+  "version": "v2.0.0",
+  "metadata": "Covid Tracker Box",
+  "presentation_(user_interface_element)_(from_metadata)": "hero-stats",
+  "ui_code_in_github_(from_metadata)": "",
+  "data_methodology": "",
+  "notifications": "CovidStateDashboardV2",
+  "image": [
+    {
+      "id": "attNvWoDa9S0Kv5yg",
+      "url": "https://dl.airtable.com/.attachments/aac145534ccadf95255f370f96f1826d/07e5d8ca/ScreenShot2021-03-16at2_56_53PM.png",
+      "filename": "Screen Shot 2021-03-16 at 2_56_53 PM.png",
+      "size": 76735,
+      "type": "image/png",
+      "thumbnails": {
+        "small": {
+          "url": "https://dl.airtable.com/.attachmentThumbnails/7c54be3770011808236ad01ef12ed6ab/df41143f",
+          "width": 43,
+          "height": 36
+        },
+        "large": {
+          "url": "https://dl.airtable.com/.attachmentThumbnails/ad62fdbece08a314f979aa38694bded5/65784c7f",
+          "width": 614,
+          "height": 512
+        },
+        "full": {
+          "url": "https://dl.airtable.com/.attachmentThumbnails/c5e032e66bf2a653b796e98460516b10/ec32e561",
+          "width": 3000,
+          "height": 3000
+        }
+      }
+    }
+  ],
+  "function_json": "https://raw.githubusercontent.com/cagov/Cron/master/CovidStateDashboardV2/function.json",
+  "data_schema_(input)": "",
+  "schedule": "0 21/30 16-18 * * *",
+  "schedule_(human-readable)": "Every 30 minutes, starting at 21 minutes past the hour, between 04:00 PM and 06:59 PM",
+  "order": "1"
+}

@@ -1,0 +1,61 @@
+{
+  "name": "infections-by-group.data.gender.deaths",
+  "label": "Infections by group, gender, deaths",
+  "data_service": "Snowflake",
+  "data_pipeline": "",
+  "spatial_coverage": "Statewide",
+  "granularity": "",
+  "source": "",
+  "change": "",
+  "data_suppression_policy": "",
+  "temporal_coverage": "",
+  "update_frequency": "",
+  "data_warehouse": "",
+  "database": "PRODUCTION",
+  "table": "CDPH_GOOD_CASES_DEATHS_BY_DEMO_STAGE",
+  "table_url": "",
+  "data_query": "https://github.com/cagov/Cron/blob/master/common/SQL/CDT_COVID/Infections-by-group/infections-by-group.sql",
+  "data_schema": "https://github.com/cagov/Cron/blob/master/common/SQL/CDT_COVID/Infections-by-group/schema/output/schema.json",
+  "tests": "",
+  "build_script": "https://github.com/cagov/Cron/blob/master/CovidStateDashboardV2/infections-by-group.js",
+  "data_location": "https://github.com/cagov/covid-static/blob/master/data/infections-by-group/infections-by-group-california.json",
+  "data_location_(development)": "",
+  "review_data_location": "",
+  "version": "v1.0.0",
+  "metadata": "\"Infections by group: Gender, deaths\"",
+  "presentation_(user_interface_element)_(from_metadata)": "cagov-chart-dashboard-groups-gender-deaths",
+  "ui_code_in_github_(from_metadata)": "",
+  "data_methodology": "",
+  "notifications": "",
+  "image": [
+    {
+      "id": "attoRoyo99UMrc5GO",
+      "url": "https://dl.airtable.com/.attachments/26391d51cb4654ac5c2adec6a108b858/1a05f8f6/ScreenShot2021-03-16at5_23_27PM.png",
+      "filename": "Screen Shot 2021-03-16 at 5_23_27 PM.png",
+      "size": 81052,
+      "type": "image/png",
+      "thumbnails": {
+        "small": {
+          "url": "https://dl.airtable.com/.attachmentThumbnails/cf3209d643b95a08454e2f068e3576ba/cb495d36",
+          "width": 61,
+          "height": 36
+        },
+        "large": {
+          "url": "https://dl.airtable.com/.attachmentThumbnails/98f4264cebd9f88c058cf8827839bff5/9cda9794",
+          "width": 870,
+          "height": 512
+        },
+        "full": {
+          "url": "https://dl.airtable.com/.attachmentThumbnails/33a336ec08bdf8d4b74bc292c2c38444/62d72cb4",
+          "width": 3000,
+          "height": 3000
+        }
+      }
+    }
+  ],
+  "function_json": "https://raw.githubusercontent.com/cagov/Cron/master/CovidStateDashboardV2/function.json",
+  "data_schema_(input)": "https://github.com/cagov/Cron/blob/master/common/SQL/CDT_COVID/Infections-by-group/schema/input/schema.json",
+  "schedule": "0 21/30 16-18 * * *",
+  "schedule_(human-readable)": "Every 30 minutes, starting at 21 minutes past the hour, between 04:00 PM and 06:59 PM",
+  "order": "2"
+}

@@ -31,6 +31,7 @@ const csvPath = "./data-package/csv";
 const dataPath = "./data-package/json";
 
 const dataPackagePath = "./";
+const apiMetaPath = "./data-package/api-meta";
 
 // Settings for exported JSON & CSV data.
 let endpoints = {
@@ -39,36 +40,44 @@ let endpoints = {
     endpoint:
       "https://api.airtable.com/v0/appwpIGqyvG6bl73j/covid19-data-package-metadata",
     fields: {
-      Title: "",
-      Name: "",
-      Version: "",
-      Intent: "",
-      Description: "",
-      Tags: [],
-      Groups: [],
-      Licenses: [],
-      Author: "",
+      "Field Name": "",
+      "Title": "",
+      "Name": "",
+      "Version": "",
+      "Intent": "",
+      "Description": "",
+      "Data publishing system": "",
+      "UI Element": "",
+      "Reference Files": "",
+      "Edit Data Source URL": "",
+      "Pages": "",
+      "Tags": "",
+      "Groups": "",
+      "Contributors": "",
+      "Topics": "",
+      "Licenses": "",
+      "Author": "",
       "Data Dictionary Type": "",
       "Data Dictionary": "",
-      "Program Contact": "",
+      "Program Contact Email": "",
       "Public Access Level": "",
-      Topics: [],
-      Language: [],
-      Rights: "",
-      Homepage: "",
+      "Rights": "",
+      "Homepage": "",
       "Data Standard": "",
-      "Documentation Template": "",
+      "Language": "",
       "Related Content": "",
+      "Metric": "",
       "Data Methodology": "",
-      Updated: "",
-      // "Reference Files": "",
-      "Edit Data Source URL": "",
-      "Pages where the data is used": "",
-      Contributors: "",
-      Metric: "",
-      "Data Attributes": "",
-      "Calculations or User Interface Manipulation": "",
-      Datasets: "",
+      "Documentation Template": "",
+      "Updated": "",
+      "Data Attributes / Options": "",
+      "Calculations": "",
+      "Datasets": "",
+      "UI code in Github": "",
+      "UI tags": "",
+      "Published": "",
+      "Image": "",
+      "Order": "",
     },
     viewName: "API",
   },
@@ -77,20 +86,44 @@ let endpoints = {
     endpoint:
       "https://api.airtable.com/v0/appwpIGqyvG6bl73j/covid19-data-package-datasets",
     fields: {
-      Name: "",
-      Label: "",
+      "Name": "",
+      "Label": "",
       "Data Service": "",
       "Data pipeline": "",
+      // "Update process": "",
+      // "Review process": "",
+      // "Contact": "",
       "Spatial Coverage": "",
+      "Granularity": "",
+      "Source": "",
+      "Change": "",
+      "Data suppression policy": "",
       "Temporal Coverage": "",
+      "Update Frequency": "",
+      // "Editorial: Edit Data Source URL (from Metadata)": "",
       "Data Warehouse": "",
-      Database: "",
-      Table: "",
+      "Database": "",
+      "Table": "",
+      "Table URL": "",
       "Data Query": "",
+      "Data Schema": "",
+      "Tests": "",
+      "Build script": "",
       "Data Location": "",
+      "Data Location (development)": "",
       "Review Data Location": "",
-      Version: "",
-      Metadata: "",
+      "Version": "",
+      "Metadata": "",
+      "Presentation (User Interface Element) (from Metadata)": "",
+      "UI code in Github (from Metadata)": "",
+      "Data Methodology": "",
+      "Notifications": "",
+      "Image": "",
+      "Function json": "",
+      "Data Schema (Input)": "",
+      "Schedule": "",
+      "Schedule (Human-readable)": "",
+      "Order": ""
     },
     viewName: "API",
   },
@@ -101,6 +134,7 @@ let endpoints = {
  */
 const buildData = async () => {
   await Object.keys(endpoints).map((endpoint) => {
+
     // Endpoint is table, but not called table here so as to not conflict with Airtable's API interface namespace.
     // Set table
     const table = base(endpoint);
@@ -126,6 +160,10 @@ const buildData = async () => {
         data: fieldsData,
       });
 
+      if (fieldsData !== "") {
+        // console.log(fieldsData.image);
+      }
+
       // Write file as JSON
       if (formattedApiResponse !== null) {
         fs.writeFile(
@@ -137,7 +175,7 @@ const buildData = async () => {
           }
         );
       }
-    });
+    }).catch((error) => console.error(error));
   });
   buildJSON();
 };
@@ -156,6 +194,7 @@ const formatResponse = ({ data = null, endpoint = null, saveCSV = true }) => {
       // Build new fields data object.
       let fields = {};
       Object.keys(returnedFields).map((fieldName) => {
+        // console.log(fieldName);
         let convertedFieldName = convertToSnakeCase(fieldName);
 
         fields[fieldName.toLowerCase().replace(/ /g, "_")] =
@@ -215,7 +254,7 @@ const formatApi = ({ data, meta }) => {
       data: data,
       total: data.length,
       date_updated: utcDate,
-    });
+    }, null, 2);
   } catch (error) {
     console.error(error);
   }
@@ -244,9 +283,11 @@ const buildJSON = () => {
     let apiDocMetadata = JSON.parse(
       fs.readFileSync(`${metaPath}/covid19-data-package-metadata.api.json`)
     );
+    
     let apiDocDatasets = JSON.parse(
       fs.readFileSync(`${metaPath}/covid19-data-package-datasets.api.json`)
     );
+
     let metadata = JSON.parse(
       fs.readFileSync(
         `${dataPath}/data-covid19-data-package-metadata.json`,
@@ -307,16 +348,39 @@ const buildJSON = () => {
 
     fs.writeFile(
       `${dataPackagePath}/data-package.json`,
-      JSON.stringify(apiData),
+      JSON.stringify(apiData, null, 2), // Pretty-print
       function (err) {
         if (err) return console.log(err);
         console.log(`Updated: data-package.json`);
       }
     );
+
+    saveRecordAsSingleFile(apiData);
   } catch (error) {
     console.error("Error building data package", error);
   }
 };
+
+const saveRecordAsSingleFile = (apiData) => {
+  // Get the array of datasets.
+  apiData.data.metadata.data.map(data => {
+    if (data.datasets.length > 0) {
+      data.datasets.map(dataset => {
+          fs.writeFile(
+            `${apiMetaPath}/${dataset.name}.json`,
+            JSON.stringify(dataset, null, 2), // Pretty print
+            function (err) {
+              if (err) return console.log(err);
+              console.log(`Updated: meta data for ${apiMetaPath}/${dataset.name}.json`);
+            }
+          );
+      })
+      
+    }
+    
+
+  });
+}
 
 /**
  * Run the script
