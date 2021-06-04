@@ -5,6 +5,14 @@ Our covid19.ca.gov website uses many data sources, this script builds a data-pac
 
 Utility function is meant to be manually run & checked in after a review of content.
 
+## Running
+* Add a .env file one folder above the repository & update the path to your location (this helps to prevent checking in the API Key)
+* Get API Key from @chachasikes
+
+`npm run build:data-package`
+
+
+
 ## Endpoints
 We have two Airtable endpoints currently supported by this import script
 

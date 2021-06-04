@@ -3,7 +3,7 @@
   "label": "COVID-19 County webpages",
   "data_service": "Airtable",
   "data_pipeline": "Airtable > Github > JSON + CSV",
-  "spatial_coverage": "County",
+  "spatial_coverage": "",
   "granularity": "",
   "source": "Department of Labor originally plus updates as available.",
   "change": "",

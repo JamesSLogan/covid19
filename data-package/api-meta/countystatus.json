@@ -3,7 +3,7 @@
   "label": "County status",
   "data_service": "Snowflake",
   "data_pipeline": "Snowflake > Github > FaaS HttpTrigger > JSON file",
-  "spatial_coverage": "County",
+  "spatial_coverage": "",
   "granularity": "",
   "source": "Governor's Office",
   "change": "",

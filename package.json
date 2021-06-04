@@ -83,7 +83,7 @@
     "compress:img": "cd src/build && node img.js",
     "testdata": "tap test/11ty-data.js",
     "test": "jest test/*.spec.js",
-    "build:data-package": "node -r dotenv/config ./data-package/scripts/get-data-package dotenv_config_path=.env/.env.local"
+    "build:data-package": "node -r dotenv/config ./data-package/scripts/get-data-package dotenv_config_path=./../.env/.env.local"
   },
   "repository": {
     "type": "git",

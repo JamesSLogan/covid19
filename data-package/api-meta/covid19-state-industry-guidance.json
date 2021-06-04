@@ -3,7 +3,7 @@
   "label": "COVID-19 State industry guidance",
   "data_service": "Airtable",
   "data_pipeline": "Airtable > Github > JSON + CSV",
-  "spatial_coverage": "Statewide",
+  "spatial_coverage": "",
   "granularity": "",
   "source": "Aggregation of multiple datasets",
   "change": "",

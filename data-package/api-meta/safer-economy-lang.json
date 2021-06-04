@@ -3,7 +3,7 @@
   "label": "Safer Economy Language Strings (Labels)",
   "data_service": "Wordpress",
   "data_pipeline": "Wordpress table data > JSON",
-  "spatial_coverage": "Statewide",
+  "spatial_coverage": "",
   "granularity": "",
   "source": "ODI Web team Content Editors",
   "change": "",

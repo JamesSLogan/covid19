@@ -3,7 +3,7 @@
   "label": "",
   "data_service": "Snowflake",
   "data_pipeline": "",
-  "spatial_coverage": "Statewide",
+  "spatial_coverage": "",
   "granularity": "Cumulative",
   "source": "",
   "change": "",

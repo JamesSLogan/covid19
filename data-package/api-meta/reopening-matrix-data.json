@@ -3,7 +3,7 @@
   "label": "Reopening Matrix Data",
   "data_service": "Wordpress",
   "data_pipeline": "Wordpress table data > JSON",
-  "spatial_coverage": "Statewide",
+  "spatial_coverage": "",
   "granularity": "",
   "source": "GO + other agencies (@TODO not sure how to describe this)",
   "change": "",

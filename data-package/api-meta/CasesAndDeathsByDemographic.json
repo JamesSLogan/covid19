@@ -3,7 +3,7 @@
   "label": "Summary - statewide",
   "data_service": "Snowflake",
   "data_pipeline": "Snowflake > Github > FaaS HttpTrigger > JSON file",
-  "spatial_coverage": "Statewide",
+  "spatial_coverage": "",
   "granularity": "",
   "source": "",
   "change": "",

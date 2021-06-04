@@ -3,7 +3,7 @@
   "label": "Tier Status Descriptors",
   "data_service": "Wordpress",
   "data_pipeline": "Wordpress table data > JSON",
-  "spatial_coverage": "Statewide",
+  "spatial_coverage": "",
   "granularity": "",
   "source": "Governor's Office + Content Editors",
   "change": "",

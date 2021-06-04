@@ -3,7 +3,7 @@
   "label": "County regions",
   "data_service": "Wordpress",
   "data_pipeline": "Wordpress table data > JSON",
-  "spatial_coverage": "County",
+  "spatial_coverage": "",
   "granularity": "",
   "source": "Governor's Office",
   "change": "",

@@ -3,7 +3,7 @@
   "label": "COVID-19 Industry guidance categories",
   "data_service": "Airtable",
   "data_pipeline": "Airtable > Github > JSON + CSV",
-  "spatial_coverage": "Statewide",
+  "spatial_coverage": "",
   "granularity": "",
   "source": "ODI managing links for a controlled vocabulary of industry guidances",
   "change": "",

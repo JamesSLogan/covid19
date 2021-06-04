@@ -1648,7 +1648,7 @@
       "name": "Tracking COVID-19 in CA",
       "version": "v2.0.0",
       "intent": "Show daily stats about Covid-19 in California.",
-      "description": "",
+      "description": "Cases box, Deaths Box, Testing Box, Vaccines box, and various paragraph text throughout the page",
       "data_publishing_system": [
         "Snowflake data pulled by FaaS script and published to Github"
       ],
@@ -1680,7 +1680,7 @@
       "metric": "",
       "data_methodology": "",
       "documentation_template": "",
-      "updated": "2021-03-17T01:00:00.000Z",
+      "updated": "2021-03-30T00:19:00.000Z",
       "data_attributes_/_options": "",
       "calculations": "",
       "datasets": "daily-stats-v2.metrics, daily-stats-v2.hospitalizations, daily-stats-v2.data.vaccinations",
@@ -1762,50 +1762,6 @@
       "published": "",
       "image": "",
       "order": "20"
-    },
-    {
-      "field_name": "",
-      "title": "Other Covid 19 Apis",
-      "name": "",
-      "version": "",
-      "intent": "",
-      "description": "",
-      "data_publishing_system": "",
-      "ui_element": "",
-      "reference_files": "",
-      "edit_data_source_url": "",
-      "pages": "",
-      "tags": "",
-      "groups": "",
-      "contributors": "",
-      "topics": [
-        "COVID-19"
-      ],
-      "licenses": "",
-      "author": "",
-      "data_dictionary_type": "",
-      "data_dictionary": "",
-      "program_contact_email": "",
-      "public_access_level": "",
-      "rights": "",
-      "homepage": "",
-      "data_standard": "",
-      "language": [
-        "English"
-      ],
-      "related_content": "",
-      "metric": "",
-      "data_methodology": "",
-      "documentation_template": "",
-      "updated": "2021-03-17T00:55:00.000Z",
-      "data_attributes_/_options": "",
-      "calculations": "",
-      "datasets": "",
-      "ui_code_in_github": "",
-      "ui_tags": "",
-      "published": "",
-      "image": "",
-      "order": "21"
     },
     {
       "field_name": "",
@@ -2195,7 +2151,7 @@
       "title": "State Dashboard",
       "name": "",
       "version": "v2.0.0",
-      "intent": "",
+      "intent": "Show daily stats about Covid-19 in California.",
       "description": "Cases box, Deaths Box, Testing Box, Vaccines box, and various paragraph text throughout the page",
       "data_publishing_system": [
         "Wordpress page > Web component HTML markup with data labels and attributes > published via Wordpress API to covid19 11ty pages",
@@ -2233,7 +2189,7 @@
       "metric": "",
       "data_methodology": "",
       "documentation_template": "",
-      "updated": "2021-03-17T01:03:00.000Z",
+      "updated": "2021-03-30T00:19:00.000Z",
       "data_attributes_/_options": "",
       "calculations": "",
       "datasets": "CovidStateDashboardV2, vaccines, vaccines.metrics, vaccines.hospitalizations",
@@ -2242,7 +2198,32 @@
         "Web component"
       ],
       "published": "",
-      "image": "",
+      "image": [
+        {
+          "id": "att1heBXt94rCNkRP",
+          "url": "https://dl.airtable.com/.attachments/5e0a9e6932fbebb640f0caf4f37b5a74/be3bbf73/ScreenShot2021-03-29at5_18_44PM.png",
+          "filename": "Screen Shot 2021-03-29 at 5_18_44 PM.png",
+          "size": 99728,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/26cce10bfa5e10a9ee775efa2b2775f4/51d51bf9",
+              "width": 85,
+              "height": 36
+            },
+            "large": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/a041b81ec891502b21faaffc1ef5866b/c425aaff",
+              "width": 1203,
+              "height": 512
+            },
+            "full": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/a6198be7e04babf21c9b5fdd1d5fb2b5/1411d73e",
+              "width": 3000,
+              "height": 3000
+            }
+          }
+        }
+      ],
       "order": "2"
     },
     {
@@ -2737,17 +2718,737 @@
       "metric": "",
       "data_methodology": "",
       "documentation_template": "",
-      "updated": "2021-03-17T01:03:00.000Z",
+      "updated": "2021-03-30T00:18:00.000Z",
       "data_attributes_/_options": "",
       "calculations": "",
-      "datasets": "",
+      "datasets": "vaccines-hpi",
       "ui_code_in_github": "",
       "ui_tags": "",
       "published": "",
       "image": "",
-      "order": ""
+      "order": "5"
+    },
+    {
+      "field_name": "",
+      "title": "Daily cases and deaths, Total confirmed cases, Episode date",
+      "name": "Daily cases and deaths",
+      "version": "v2.0.0",
+      "intent": "Daily cases and deaths, Total confirmed cases, Episode date",
+      "description": "California confirmed cases and deaths.",
+      "data_publishing_system": [
+        "Snowflake data pulled by FaaS script and published to Github"
+      ],
+      "ui_element": "",
+      "reference_files": "",
+      "edit_data_source_url": "",
+      "pages": "",
+      "tags": "",
+      "groups": "",
+      "contributors": "",
+      "topics": "",
+      "licenses": "",
+      "author": "",
+      "data_dictionary_type": "",
+      "data_dictionary": "",
+      "program_contact_email": "",
+      "public_access_level": "",
+      "rights": "",
+      "homepage": "",
+      "data_standard": "",
+      "language": [
+        "English"
+      ],
+      "related_content": "",
+      "metric": "",
+      "data_methodology": "Note: Numbers do not represent true day-over-day changes as these results include cases from prior to yesterday. Episode date is the date the event is estimated to have taken place. Reported date is the date the event was reported to the California Department of Public Health. Cases includes people in state and federal prisons, US Immigration and Customs Enforcement facilities, US Marshal detention facilities, and Department of State Hospitals facilities. These groups are excluded from the Blueprint tier assignment calculations, which show different case and test positivity rates. A negative number of reported deaths means that deaths previously attributed to COVID-19 were determined to not be associated with COVID-19.\n",
+      "documentation_template": "",
+      "updated": "2021-03-30T00:48:00.000Z",
+      "data_attributes_/_options": "",
+      "calculations": "",
+      "datasets": "",
+      "ui_code_in_github": "",
+      "ui_tags": [
+        "Web component",
+        "d3 chart"
+      ],
+      "published": "",
+      "image": [
+        {
+          "id": "att4T629hkqWI1LbI",
+          "url": "https://dl.airtable.com/.attachments/b0df140727e52e0ff21270264fedf443/3cb5a46e/ScreenShot2021-03-29at5_39_57PM.png",
+          "filename": "Screen Shot 2021-03-29 at 5_39_57 PM.png",
+          "size": 51495,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/e3c24c708b8badf5657d11b2116fe30f/90481f46",
+              "width": 33,
+              "height": 36
+            },
+            "large": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/09698743ca9914a4097d307b8b15f483/78579e55",
+              "width": 472,
+              "height": 513
+            },
+            "full": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/a1c99ba76cfe4df78cb0e3483db3f33e/9aa3871b",
+              "width": 3000,
+              "height": 3000
+            }
+          }
+        }
+      ],
+      "order": "2"
+    },
+    {
+      "field_name": "",
+      "title": "Daily cases and deaths, Total confirmed cases, Reported date",
+      "name": "Daily cases and deaths",
+      "version": "v2.0.0",
+      "intent": "Daily cases and deaths, Total confirmed cases, Reported date",
+      "description": "California confirmed cases and deaths.",
+      "data_publishing_system": [
+        "Snowflake data pulled by FaaS script and published to Github"
+      ],
+      "ui_element": "",
+      "reference_files": "",
+      "edit_data_source_url": "",
+      "pages": "",
+      "tags": "",
+      "groups": "",
+      "contributors": "",
+      "topics": "",
+      "licenses": "",
+      "author": "",
+      "data_dictionary_type": "",
+      "data_dictionary": "",
+      "program_contact_email": "",
+      "public_access_level": "",
+      "rights": "",
+      "homepage": "",
+      "data_standard": "",
+      "language": [
+        "English"
+      ],
+      "related_content": "",
+      "metric": "",
+      "data_methodology": "Note: Numbers do not represent true day-over-day changes as these results include cases from prior to yesterday. Episode date is the date the event is estimated to have taken place. Reported date is the date the event was reported to the California Department of Public Health. Cases includes people in state and federal prisons, US Immigration and Customs Enforcement facilities, US Marshal detention facilities, and Department of State Hospitals facilities. These groups are excluded from the Blueprint tier assignment calculations, which show different case and test positivity rates. A negative number of reported deaths means that deaths previously attributed to COVID-19 were determined to not be associated with COVID-19.\n",
+      "documentation_template": "",
+      "updated": "2021-03-30T00:48:00.000Z",
+      "data_attributes_/_options": "",
+      "calculations": "",
+      "datasets": "",
+      "ui_code_in_github": "",
+      "ui_tags": [
+        "Web component",
+        "d3 chart"
+      ],
+      "published": "",
+      "image": [
+        {
+          "id": "att8vO7OMnLDGdHnM",
+          "url": "https://dl.airtable.com/.attachments/4c288ce94a8508c715b678b4c848ee00/40f5c324/ScreenShot2021-03-29at5_40_06PM.png",
+          "filename": "Screen Shot 2021-03-29 at 5_40_06 PM.png",
+          "size": 49188,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/a61ec8d5afecd9bbbe8e9e43de8b23b8/59c718f8",
+              "width": 32,
+              "height": 36
+            },
+            "large": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/cfaef4d02d730d6087392a82cde32cc9/21bb6d6e",
+              "width": 451,
+              "height": 512
+            },
+            "full": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/69236a6342511a00e4e4fe33f0b1e600/925ef077",
+              "width": 3000,
+              "height": 3000
+            }
+          }
+        }
+      ],
+      "order": "2"
+    },
+    {
+      "field_name": "",
+      "title": "Daily cases and deaths, Total confirmed deaths, Death date",
+      "name": "Daily cases and deaths",
+      "version": "v2.0.0",
+      "intent": "Daily cases and deaths, Total confirmed deaths, Death date",
+      "description": "California confirmed cases and deaths.",
+      "data_publishing_system": [
+        "Snowflake data pulled by FaaS script and published to Github"
+      ],
+      "ui_element": "",
+      "reference_files": "",
+      "edit_data_source_url": "",
+      "pages": "",
+      "tags": "",
+      "groups": "",
+      "contributors": "",
+      "topics": "",
+      "licenses": "",
+      "author": "",
+      "data_dictionary_type": "",
+      "data_dictionary": "",
+      "program_contact_email": "",
+      "public_access_level": "",
+      "rights": "",
+      "homepage": "",
+      "data_standard": "",
+      "language": [
+        "English"
+      ],
+      "related_content": "",
+      "metric": "",
+      "data_methodology": "Note: Numbers do not represent true day-over-day changes as these results include cases from prior to yesterday. Episode date is the date the event is estimated to have taken place. Reported date is the date the event was reported to the California Department of Public Health. Cases includes people in state and federal prisons, US Immigration and Customs Enforcement facilities, US Marshal detention facilities, and Department of State Hospitals facilities. These groups are excluded from the Blueprint tier assignment calculations, which show different case and test positivity rates. A negative number of reported deaths means that deaths previously attributed to COVID-19 were determined to not be associated with COVID-19.\n",
+      "documentation_template": "",
+      "updated": "2021-03-30T00:48:00.000Z",
+      "data_attributes_/_options": "",
+      "calculations": "",
+      "datasets": "",
+      "ui_code_in_github": "",
+      "ui_tags": [
+        "Web component",
+        "d3 chart"
+      ],
+      "published": "",
+      "image": [
+        {
+          "id": "attI6Yahm3DYHYy11",
+          "url": "https://dl.airtable.com/.attachments/e09e6b6aac49b6ead01d2bb8b7e9e6a2/e7a98df7/ScreenShot2021-03-29at5_41_39PM.png",
+          "filename": "Screen Shot 2021-03-29 at 5_41_39 PM.png",
+          "size": 52019,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/35aa4ffb75a3d18f6e2ed9aae5b69607/7e6690dd",
+              "width": 33,
+              "height": 36
+            },
+            "large": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/4836ddb55d2482c49f34fddefee54e59/956e6330",
+              "width": 477,
+              "height": 519
+            },
+            "full": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/0b34564ad550926367756ef75f0de2b9/7193aa33",
+              "width": 3000,
+              "height": 3000
+            }
+          }
+        }
+      ],
+      "order": "2"
+    },
+    {
+      "field_name": "",
+      "title": "Daily cases and deaths, Total confirmed deaths, Reported date",
+      "name": "Daily cases and deaths",
+      "version": "v2.0.0",
+      "intent": "Daily cases and deaths, Total confirmed deaths, Reported date",
+      "description": "California confirmed cases and deaths.",
+      "data_publishing_system": [
+        "Snowflake data pulled by FaaS script and published to Github"
+      ],
+      "ui_element": "",
+      "reference_files": "",
+      "edit_data_source_url": "",
+      "pages": "",
+      "tags": "",
+      "groups": "",
+      "contributors": "",
+      "topics": "",
+      "licenses": "",
+      "author": "",
+      "data_dictionary_type": "",
+      "data_dictionary": "",
+      "program_contact_email": "",
+      "public_access_level": "",
+      "rights": "",
+      "homepage": "",
+      "data_standard": "",
+      "language": [
+        "English"
+      ],
+      "related_content": "",
+      "metric": "",
+      "data_methodology": "Note: Numbers do not represent true day-over-day changes as these results include cases from prior to yesterday. Episode date is the date the event is estimated to have taken place. Reported date is the date the event was reported to the California Department of Public Health. Cases includes people in state and federal prisons, US Immigration and Customs Enforcement facilities, US Marshal detention facilities, and Department of State Hospitals facilities. These groups are excluded from the Blueprint tier assignment calculations, which show different case and test positivity rates. A negative number of reported deaths means that deaths previously attributed to COVID-19 were determined to not be associated with COVID-19.\n",
+      "documentation_template": "",
+      "updated": "2021-03-30T00:48:00.000Z",
+      "data_attributes_/_options": "",
+      "calculations": "",
+      "datasets": "",
+      "ui_code_in_github": "",
+      "ui_tags": [
+        "Web component",
+        "d3 chart"
+      ],
+      "published": "",
+      "image": [
+        {
+          "id": "atte0ZAO5xjgaPx55",
+          "url": "https://dl.airtable.com/.attachments/0140b596db8542aeb1d2469b3d1f048c/e937544b/ScreenShot2021-03-29at5_40_19PM.png",
+          "filename": "Screen Shot 2021-03-29 at 5_40_19 PM.png",
+          "size": 53346,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/b2d9e401353a4210088c5feb06324097/d6e2bc31",
+              "width": 32,
+              "height": 36
+            },
+            "large": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/1e3ea056363d2d7d73ae6e74f592ede0/5436870b",
+              "width": 459,
+              "height": 511
+            },
+            "full": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/ad82da17202a36fc63a507eeee46ea2e/b391f0ca",
+              "width": 3000,
+              "height": 3000
+            }
+          }
+        }
+      ],
+      "order": "2"
+    },
+    {
+      "field_name": "",
+      "title": "Testing for COVID-19, Total tests, Testing date",
+      "name": "Testing for COVID-19",
+      "version": "v2.0.0",
+      "intent": "Testing for COVID-19, Total tests, Testing date",
+      "description": "The number of COVID-19 diagnostic test results in California.",
+      "data_publishing_system": [
+        "Snowflake data pulled by FaaS script and published to Github"
+      ],
+      "ui_element": "",
+      "reference_files": "",
+      "edit_data_source_url": "",
+      "pages": "",
+      "tags": "",
+      "groups": "",
+      "contributors": "",
+      "topics": "",
+      "licenses": "",
+      "author": "",
+      "data_dictionary_type": "",
+      "data_dictionary": "",
+      "program_contact_email": "",
+      "public_access_level": "",
+      "rights": "",
+      "homepage": "",
+      "data_standard": "",
+      "language": [
+        "English"
+      ],
+      "related_content": "",
+      "metric": "",
+      "data_methodology": "Note: Testing date is the date the test was administered. Reported date is the date the event was reported to the California Department of Public Health. Reported date data is not available for tests before May 5, 2020. Testing date data excludes out-of-state and unknown jurisdiction tests and total numbers may not match reporting date numbers. Positivity rate is calculated as the number of positive molecular tests divided by the total molecular tests performed. Positivity rate includes people in state and federal prisons, US Immigration and Customs Enforcement facilities, US Marshal detention facilities, and Department of State Hospitals facilities. These groups are excluded from the Blueprint tier assignment calculations, which show different case and test positivity rates. Positivity rate was previously reported as a 14-day average.\n",
+      "documentation_template": "",
+      "updated": "2021-03-30T00:48:00.000Z",
+      "data_attributes_/_options": "",
+      "calculations": "",
+      "datasets": "",
+      "ui_code_in_github": "",
+      "ui_tags": [
+        "Web component",
+        "d3 chart"
+      ],
+      "published": "",
+      "image": [
+        {
+          "id": "attveIR8wkRCpj1vM",
+          "url": "https://dl.airtable.com/.attachments/23b4baa758914e3ab41230c8decbd35c/d9845df5/ScreenShot2021-03-29at5_43_20PM.png",
+          "filename": "Screen Shot 2021-03-29 at 5_43_20 PM.png",
+          "size": 49136,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/c8a3d040e7b43c973393dba1e064ac0a/67b30e9e",
+              "width": 32,
+              "height": 36
+            },
+            "large": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/716dda6524095ed162c09e20c1a3cb66/1acb2183",
+              "width": 459,
+              "height": 515
+            },
+            "full": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/f20c51a382b1d30b8db34b6b83897fc5/42f548c5",
+              "width": 3000,
+              "height": 3000
+            }
+          }
+        }
+      ],
+      "order": "2"
+    },
+    {
+      "field_name": "",
+      "title": "Testing for COVID-19, Total tests, Reported date",
+      "name": "Testing for COVID-19",
+      "version": "v2.0.0",
+      "intent": "Testing for COVID-19, Total tests, Reported date",
+      "description": "The number of COVID-19 diagnostic test results in California.",
+      "data_publishing_system": [
+        "Snowflake data pulled by FaaS script and published to Github"
+      ],
+      "ui_element": "",
+      "reference_files": "",
+      "edit_data_source_url": "",
+      "pages": "",
+      "tags": "",
+      "groups": "",
+      "contributors": "",
+      "topics": "",
+      "licenses": "",
+      "author": "",
+      "data_dictionary_type": "",
+      "data_dictionary": "",
+      "program_contact_email": "",
+      "public_access_level": "",
+      "rights": "",
+      "homepage": "",
+      "data_standard": "",
+      "language": [
+        "English"
+      ],
+      "related_content": "",
+      "metric": "",
+      "data_methodology": "Note: Testing date is the date the test was administered. Reported date is the date the event was reported to the California Department of Public Health. Reported date data is not available for tests before May 5, 2020. Testing date data excludes out-of-state and unknown jurisdiction tests and total numbers may not match reporting date numbers. Positivity rate is calculated as the number of positive molecular tests divided by the total molecular tests performed. Positivity rate includes people in state and federal prisons, US Immigration and Customs Enforcement facilities, US Marshal detention facilities, and Department of State Hospitals facilities. These groups are excluded from the Blueprint tier assignment calculations, which show different case and test positivity rates. Positivity rate was previously reported as a 14-day average.\n",
+      "documentation_template": "",
+      "updated": "2021-03-30T00:48:00.000Z",
+      "data_attributes_/_options": "",
+      "calculations": "",
+      "datasets": "",
+      "ui_code_in_github": "",
+      "ui_tags": [
+        "Web component",
+        "d3 chart"
+      ],
+      "published": "",
+      "image": [
+        {
+          "id": "attuHAfzsWnE1pVQw",
+          "url": "https://dl.airtable.com/.attachments/30b00701d9c1acf3ca8b45c8597a0d0f/1f0cd18a/ScreenShot2021-03-29at5_43_30PM.png",
+          "filename": "Screen Shot 2021-03-29 at 5_43_30 PM.png",
+          "size": 49022,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/03e42dd3c53af36877466aff5e7081fb/5beb5c29",
+              "width": 32,
+              "height": 36
+            },
+            "large": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/7801755064647a02a5f998e6500bb5ef/3f8156d0",
+              "width": 451,
+              "height": 513
+            },
+            "full": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/d5b24e5c0e35a1aa49afb2d71a6cd283/2c485263",
+              "width": 3000,
+              "height": 3000
+            }
+          }
+        }
+      ],
+      "order": "2"
+    },
+    {
+      "field_name": "",
+      "title": "Testing for COVID-19, Total tests, Positivity rate",
+      "name": "Testing for COVID-19",
+      "version": "v2.0.0",
+      "intent": "Testing for COVID-19, Total tests, Positivity rate",
+      "description": "The number of COVID-19 diagnostic test results in California.",
+      "data_publishing_system": [
+        "Snowflake data pulled by FaaS script and published to Github"
+      ],
+      "ui_element": "",
+      "reference_files": "",
+      "edit_data_source_url": "",
+      "pages": "",
+      "tags": "",
+      "groups": "",
+      "contributors": "",
+      "topics": "",
+      "licenses": "",
+      "author": "",
+      "data_dictionary_type": "",
+      "data_dictionary": "",
+      "program_contact_email": "",
+      "public_access_level": "",
+      "rights": "",
+      "homepage": "",
+      "data_standard": "",
+      "language": [
+        "English"
+      ],
+      "related_content": "",
+      "metric": "",
+      "data_methodology": "Note: Testing date is the date the test was administered. Reported date is the date the event was reported to the California Department of Public Health. Reported date data is not available for tests before May 5, 2020. Testing date data excludes out-of-state and unknown jurisdiction tests and total numbers may not match reporting date numbers. Positivity rate is calculated as the number of positive molecular tests divided by the total molecular tests performed. Positivity rate includes people in state and federal prisons, US Immigration and Customs Enforcement facilities, US Marshal detention facilities, and Department of State Hospitals facilities. These groups are excluded from the Blueprint tier assignment calculations, which show different case and test positivity rates. Positivity rate was previously reported as a 14-day average.\n",
+      "documentation_template": "",
+      "updated": "2021-03-30T00:48:00.000Z",
+      "data_attributes_/_options": "",
+      "calculations": "",
+      "datasets": "",
+      "ui_code_in_github": "",
+      "ui_tags": [
+        "Web component",
+        "d3 chart"
+      ],
+      "published": "",
+      "image": [
+        {
+          "id": "attCdU7u56TYBaCFK",
+          "url": "https://dl.airtable.com/.attachments/7886360c450a2870bdcb2c53627681ba/a743b262/ScreenShot2021-03-29at5_43_35PM.png",
+          "filename": "Screen Shot 2021-03-29 at 5_43_35 PM.png",
+          "size": 45238,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/af8d5173a02a1534df4765bb1d2433ea/327265e2",
+              "width": 32,
+              "height": 36
+            },
+            "large": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/423221ac86f9240d12f404273824b42c/172ec555",
+              "width": 460,
+              "height": 514
+            },
+            "full": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/e082b42da531851766c773c9dc12d0af/298df9c0",
+              "width": 3000,
+              "height": 3000
+            }
+          }
+        }
+      ],
+      "order": "2"
+    },
+    {
+      "field_name": "",
+      "title": "Impact on hospitals and ICUs, Hospitalized Patients, Intensive Care Unit, ICU",
+      "name": "COVID-19 hospitalized patients in California",
+      "version": "v2.0.0",
+      "intent": "COVID-19 hospitalized patients in California",
+      "description": "The number of hospitalizations due to confirmed and suspected COVID-19 cases in California",
+      "data_publishing_system": [
+        "Snowflake data pulled by FaaS script and published to Github"
+      ],
+      "ui_element": "",
+      "reference_files": "",
+      "edit_data_source_url": "",
+      "pages": "",
+      "tags": "",
+      "groups": "",
+      "contributors": "",
+      "topics": "",
+      "licenses": "",
+      "author": "",
+      "data_dictionary_type": "",
+      "data_dictionary": "",
+      "program_contact_email": "",
+      "public_access_level": "",
+      "rights": "",
+      "homepage": "",
+      "data_standard": "",
+      "language": [
+        "English"
+      ],
+      "related_content": "",
+      "metric": "",
+      "data_methodology": "\n",
+      "documentation_template": "",
+      "updated": "2021-03-30T00:51:00.000Z",
+      "data_attributes_/_options": "",
+      "calculations": "",
+      "datasets": "",
+      "ui_code_in_github": "",
+      "ui_tags": [
+        "Web component",
+        "d3 chart"
+      ],
+      "published": "",
+      "image": [
+        {
+          "id": "attiXdsjv0pRbOSdV",
+          "url": "https://dl.airtable.com/.attachments/3e841d468c3ca981e80dbad46987aace/2a9b4f3e/ScreenShot2021-03-29at5_47_10PM.png",
+          "filename": "Screen Shot 2021-03-29 at 5_47_10 PM.png",
+          "size": 43245,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/2e84e90e77087311df6401ec65320d09/561e5070",
+              "width": 33,
+              "height": 36
+            },
+            "large": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/a273472d3e57f5b50b4eadd1bed33468/f445a512",
+              "width": 475,
+              "height": 514
+            },
+            "full": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/2d588b39846a819b4818354e404d962c/dfc62ed5",
+              "width": 3000,
+              "height": 3000
+            }
+          }
+        }
+      ],
+      "order": "2"
+    },
+    {
+      "field_name": "",
+      "title": "Impact on hospitals and ICUs, Hospitalized Patients, Hospitalized",
+      "name": "Impact on hospitals and ICUs",
+      "version": "v2.0.0",
+      "intent": "Impact on hospitals and ICUs, Hospitalized Patients, Hospitalized",
+      "description": "The number of hospitalizations due to confirmed and suspected COVID-19 cases in California",
+      "data_publishing_system": [
+        "Snowflake data pulled by FaaS script and published to Github"
+      ],
+      "ui_element": "",
+      "reference_files": "",
+      "edit_data_source_url": "",
+      "pages": "",
+      "tags": "",
+      "groups": "",
+      "contributors": "",
+      "topics": "",
+      "licenses": "",
+      "author": "",
+      "data_dictionary_type": "",
+      "data_dictionary": "",
+      "program_contact_email": "",
+      "public_access_level": "",
+      "rights": "",
+      "homepage": "",
+      "data_standard": "",
+      "language": [
+        "English"
+      ],
+      "related_content": "",
+      "metric": "",
+      "data_methodology": "",
+      "documentation_template": "",
+      "updated": "2021-03-30T00:48:00.000Z",
+      "data_attributes_/_options": "",
+      "calculations": "",
+      "datasets": "",
+      "ui_code_in_github": "",
+      "ui_tags": [
+        "Web component",
+        "d3 chart"
+      ],
+      "published": "",
+      "image": [
+        {
+          "id": "attxap4wsIYMAHdtC",
+          "url": "https://dl.airtable.com/.attachments/d6d74691005d816c501815b232739afe/1b1fdd0d/ScreenShot2021-03-29at5_47_16PM.png",
+          "filename": "Screen Shot 2021-03-29 at 5_47_16 PM.png",
+          "size": 43179,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/1da343e0daa9fd423aa7ab6d516691f1/5439b6bf",
+              "width": 33,
+              "height": 36
+            },
+            "large": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/5e7dce5596f2757410292e1d4abac908/7d0f5a13",
+              "width": 467,
+              "height": 516
+            },
+            "full": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/9d5dbec39ab34ac417a58d83a4b25bd1/11eb594b",
+              "width": 3000,
+              "height": 3000
+            }
+          }
+        }
+      ],
+      "order": "2"
+    },
+    {
+      "field_name": "",
+      "title": "Impact on hospitals and ICUs, Hospitalized Patients,  Intensive Care Unit, ICU Beds",
+      "name": "Impact on hospitals and ICUs",
+      "version": "v2.0.0",
+      "intent": "Impact on hospitals and ICUs, Hospitalized Patients, ICU Beds",
+      "description": "The number of hospitalizations due to confirmed and suspected COVID-19 cases in California",
+      "data_publishing_system": [
+        "Snowflake data pulled by FaaS script and published to Github"
+      ],
+      "ui_element": "",
+      "reference_files": "",
+      "edit_data_source_url": "",
+      "pages": "",
+      "tags": "",
+      "groups": "",
+      "contributors": "",
+      "topics": "",
+      "licenses": "",
+      "author": "",
+      "data_dictionary_type": "",
+      "data_dictionary": "",
+      "program_contact_email": "",
+      "public_access_level": "",
+      "rights": "",
+      "homepage": "",
+      "data_standard": "",
+      "language": [
+        "English"
+      ],
+      "related_content": "",
+      "metric": "",
+      "data_methodology": "",
+      "documentation_template": "",
+      "updated": "2021-03-30T00:48:00.000Z",
+      "data_attributes_/_options": "",
+      "calculations": "",
+      "datasets": "",
+      "ui_code_in_github": "",
+      "ui_tags": [
+        "Web component",
+        "d3 chart"
+      ],
+      "published": "",
+      "image": [
+        {
+          "id": "attiwzYEno7ftEvit",
+          "url": "https://dl.airtable.com/.attachments/c5fa758daf4606b8466560b4624621e5/a5d36bd5/ScreenShot2021-03-29at5_47_16PM.png",
+          "filename": "Screen Shot 2021-03-29 at 5_47_16 PM.png",
+          "size": 43179,
+          "type": "image/png",
+          "thumbnails": {
+            "small": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/b1f4526603287b1fc9d6434b3afaea41/9a368c68",
+              "width": 33,
+              "height": 36
+            },
+            "large": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/ef766f200297bd95760450f03daf483d/bcbc66ed",
+              "width": 467,
+              "height": 516
+            },
+            "full": {
+              "url": "https://dl.airtable.com/.attachmentThumbnails/f5a106139060360c93d682a17fd14a3b/17e034d2",
+              "width": 3000,
+              "height": 3000
+            }
+          }
+        }
+      ],
+      "order": "2"
     }
   ],
-  "total": 49,
-  "date_updated": "2021-03-18T04:29:51.000Z"
+  "total": 58,
+  "date_updated": "2021-06-04T18:39:25.000Z"
 }

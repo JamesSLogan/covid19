@@ -3,7 +3,7 @@
   "label": "Regional Stay-at-Home Order",
   "data_service": "Wordpress",
   "data_pipeline": "Wordpress table data > JSON",
-  "spatial_coverage": "RSHO",
+  "spatial_coverage": "",
   "granularity": "",
   "source": "Governor's Office",
   "change": "",

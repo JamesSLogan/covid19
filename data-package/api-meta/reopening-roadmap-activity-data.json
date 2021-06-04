@@ -3,7 +3,7 @@
   "label": "Reopening roadmap activity data",
   "data_service": "Wordpress",
   "data_pipeline": "Google sheet > Wordpress Table Data > JSON\n",
-  "spatial_coverage": "Statewide",
+  "spatial_coverage": "",
   "granularity": "",
   "source": "GO + other agencies (@TODO not sure how to describe this)",
   "change": "",

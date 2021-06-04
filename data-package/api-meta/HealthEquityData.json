@@ -3,7 +3,7 @@
   "label": "Equity metric - test positivity",
   "data_service": "Snowflake",
   "data_pipeline": "Snowflake > Github > FaaS HttpTrigger > JSON file",
-  "spatial_coverage": "County",
+  "spatial_coverage": "",
   "granularity": "Data shown is a 7-day average of positivity rate with a 7-day lag.",
   "source": "",
   "change": "",

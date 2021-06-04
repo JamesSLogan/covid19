@@ -3,7 +3,7 @@
   "label": "Reopening roadmap activity and business search data",
   "data_service": "Airtable",
   "data_pipeline": "Airtable > Github > JSON + CSV",
-  "spatial_coverage": "Statewide",
+  "spatial_coverage": "",
   "granularity": "",
   "source": "Governor's Office, ODI, User feedback (determining search categories)",
   "change": "",

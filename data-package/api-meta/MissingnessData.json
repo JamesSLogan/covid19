@@ -3,7 +3,7 @@
   "label": "% Missingness by Race and Ethnicity (R/E)",
   "data_service": "Snowflake",
   "data_pipeline": "Snowflake > Github > FaaS HttpTrigger > JSON file",
-  "spatial_coverage": "County",
+  "spatial_coverage": "",
   "granularity": "Cumulative 30 day",
   "source": "",
   "change": "From 30 days ago",
