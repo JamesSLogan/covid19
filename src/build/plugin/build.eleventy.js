@@ -1,41 +1,62 @@
 const sass = require("sass");
 const fs = require("fs");
 const rollup = require("rollup");
+const { PurgeCSS, default: purgecss } = require('purgecss')
 const loadConfigFile = require('rollup/dist/loadConfigFile');
 const minimatch = require("minimatch");
 const path = require('path');
 
 const generateSass = (options) => {
-    let defaultSassOptions = {
+    let defaultSassConfig = {
         file: './src/css/sass/index.scss',
         includePaths: ['./src/css'],
         sourceMap: false
     };
 
     let sassOptionsMap = options.map(sassOptions => {
-        sassOptions.sassConfig = { ...defaultSassOptions, ...sassOptions.sassConfig };
-        sassOptions.sassConfig.outFile = sassOptions.output;
+        sassOptions.sassConfig = { ...defaultSassConfig, ...sassOptions.sassConfig };
         return sassOptions;
     });
 
     sassOptionsMap.forEach(sassOptions => {
-        sass.render(sassOptions.sassConfig, (err, result) => {
-            if (err) {
-                console.log(err);
-            }
-            console.log(`[CaGov Build System] Writing ${sassOptions.output} from ${sassOptions.sassConfig.file} (sass)`);
-            fs.writeFileSync(sassOptions.output, result.css);
-            if (sassOptions.sassConfig.sourceMap) {
-                fs.writeFileSync(sassOptions.output.replace(/\.css/gi, ".map.css"), result.map);
-            }
+        sassOptions.output.forEach(output => {
+            sassOptions.sassConfig.outFile = output;
+            sass.render(sassOptions.sassConfig, (err, result) => {
+                if (err) {
+                    console.log(err);
+                }
+                console.log(`[CaGov Build System] Writing ${output} from ${sassOptions.sassConfig.file} (sass)`);
+                fs.writeFileSync(output, result.css);
+                if (sassOptions.sassConfig.sourceMap) {
+                    fs.writeFileSync(output.replace(/\.css/gi, ".map.css"), result.map);
+                }
+            });
         });
+
+        if (sassOptions.purge.length > 0) {
+            sassOptions.purge.forEach(async purge => {
+                const purgeCSSResult = await new PurgeCSS().purge({
+                    content: purge.content,
+                    css: [sassOptions.output[0]],
+                    safelist: [/lang$/, /dir$/],
+                    extractors: [
+                        {
+                            extractor: content => content.match(/[A-Za-z0-9-_:\/]+/g) || [],
+                            extensions: ['js']
+                        }
+                    ]
+                });
+                console.log(`[CaGov Build System] Writing ${purge.output} from ${sassOptions.output[0]} (purgecss)`);
+                fs.writeFileSync(purge.output, purgeCSSResult[0].css);
+            });
+        }
     }); 
 };
 
 const generateRollup = async options => {
-    await Promise.all(options.map(async rollupConfig => {
+    await Promise.all(options.map(rollupConfig => {
         // Lifted from https://rollupjs.org/guide/en/#programmatically-loading-a-config-file
-        await loadConfigFile(path.resolve(process.cwd(), rollupConfig.file)).then(
+        return loadConfigFile(path.resolve(process.cwd(), rollupConfig.file)).then(
             async ({ options, warnings }) => {
                 warnings.flush();
                 for (const optionsObj of options) {

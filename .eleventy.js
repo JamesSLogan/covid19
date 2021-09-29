@@ -116,13 +116,13 @@ module.exports = function (eleventyConfig) {
     sass: [
       {
         watch: ['./src/css/**/*'],
-        output: (process.env.NODE_ENV === 'development') ? './docs/css/build/development.css' : './pages/_buildoutput/development.css',
+        output: ['./docs/css/build/development.css', './pages/_buildoutput/development.css'],
         sassConfig: {
           file: './src/css/_index.scss',
           includePaths: ['./src/css'],
           sourceMap: false
         },
-        purges: [
+        purge: [
           {
             output: (process.env.NODE_ENV === 'development') ? './docs/css/build/home.css' : './pages/_buildoutput/home.css',
             content: [
