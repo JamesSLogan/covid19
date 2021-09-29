@@ -1,8 +1,10 @@
 const fs = require('fs');
 const md5 = require('md5');
+const buildConfig = require('./src/build/plugin/build.eleventy');
 const langData = JSON.parse(fs.readFileSync('pages/_data/langData.json', 'utf8'));
 const dateFormats = JSON.parse(fs.readFileSync('pages/_data/dateformats.json', 'utf8'));
 const { addPreviewModeToEleventy, getPostJsonFromWordpress } = require("@cagov/11ty-serverless-preview-mode");
+const { build } = require('./gulpfile');
 const wordPressSettings = {
   wordPressSite: "https://as-go-covid19-d-001.azurewebsites.net", //Wordpress endpoint
   //previewWordPressTagSlug: 'preview-mode' // optional filter for digest list of preview in Wordpress
@@ -25,6 +27,63 @@ const langPostfixRegExp = new RegExp(`(?:${langData.languages
 const engSlug = page => page.inputPath.includes('/manual-content/homepages/')
   ? '' //This is a root language page
   : page.fileSlug.replace(langPostfixRegExp, '');
+
+// function to download a remove file and place it in a location
+const download = (url, dest, cb) => {
+  if (fs.existsSync(dest)) return; //skipping downloading of existing files
+
+  console.log(`downloading ${url}`);
+  const file = fs.createWriteStream(dest);
+  const sendReq = request.get(url);
+
+  // verify response code
+  sendReq.on('response', response => {
+    if (response.statusCode !== 200) {
+      return cb(response.statusCode);
+    }
+
+    sendReq.pipe(file);
+  });
+
+  // close() is async, call cb after close completes
+  file.on('finish', () => file.close(cb));
+
+  // check for request errors
+  sendReq.on('error', err => {
+    fs.unlink(dest);
+    return cb(err.message);
+  });
+
+  file.on('error', err => { // Handle errors
+    fs.unlink(dest); // Delete the file async. (But we don't check the result)
+    return cb(err.message);
+  });
+};
+
+function writeMenuJson(lang) {
+  const menuLinksJson = JSON.parse(fs.readFileSync(`pages${lang.includepath.replace(/\./g, '')}menu-links${lang.filepostfix}.json`, 'utf8'));
+  const singleLangMenu = {
+    sections: menuLinksJson.Table1
+      .map(section => ({
+        title: section.label,
+        links:
+          menuLinksJson.Table2
+            .filter(l => l._slug_or_url && l.label && l._section_index === section._section_index)
+            .map(link => ({
+              url:
+                (link._slug_or_url.toLowerCase().startsWith('http'))
+                  ? link._slug_or_url //http full link
+                  : `/${lang.pathpostfix}${link._slug_or_url}/`, // slug or relative link
+              name: link.label
+            })
+            )
+      })
+      )
+  };
+  const outputFileName = './docs/menu--' + lang.id + '.json';
+  console.log(`writing ${outputFileName}`);
+  fs.writeFileSync(outputFileName, JSON.stringify(singleLangMenu), 'utf8');
+}
 
 /**
  * @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig 
@@ -53,7 +112,59 @@ module.exports = function (eleventyConfig) {
     return output;
   });
 
+  eleventyConfig.addPlugin(buildConfig, {
+    sass: [
+      {
+        watch: ['./src/css/**/*'],
+        output: (process.env.NODE_ENV === 'development') ? './docs/css/build/development.css' : './pages/_buildoutput/development.css',
+        sassConfig: {
+          file: './src/css/_index.scss',
+          includePaths: ['./src/css'],
+          sourceMap: false
+        },
+        purges: [
+          {
+            output: (process.env.NODE_ENV === 'development') ? './docs/css/build/home.css' : './pages/_buildoutput/home.css',
+            content: [
+              'pages/_includes/main.njk',
+              'pages/_includes/header.njk',
+              'pages/_includes/footer.njk',
+              'pages/_includes/accordion.html',
+              'pages/**/*.js',
+              'pages/wordpress-posts/banner*.html',
+              'pages/wordpress-posts/homepage-featured.html',
+              'pages/@(translated|wordpress)-posts/@(new|find-services|cali-working|home-header)*.html'
+            ]
+          },
+          {
+            output: (process.env.NODE_ENV === 'development') ? './docs/css/build/built.css' : './pages/_buildoutput/built.css',
+            content: [
+              'pages/**/*.njk',
+              'pages/**/*.html',
+              'pages/**/*.js',
+              'pages/wordpress-posts/banner*.html',
+              'pages/@(translated|wordpress)-posts/new*.html'
+            ]
+          }
+        ]
+      }
+    ],
+    rollup: [
+      {
+        watch: ['./src/js/**/*'],
+        file: './src/js/rollup.config.all.js'
+      }
+    ],
+    beforeBuild: () => {
+      download('https://files.covid19.ca.gov/sitemap.xml', './pages/_buildoutput/fileSitemap.xml', error => {
+        if (error) {
+          console.error(error);
+        }
+      });
 
+      langData.languages.forEach(writeMenuJson);
+    },
+  });
 
   //Copy static assets
   eleventyConfig.addPassthroughCopy({ "./src/css/fonts": "fonts" });

@@ -1,3 +1,5 @@
+@use "sass:math";
+
 /*TRILOGY GLOBALS VARIABLES & MIXINGS:*/
 $max-width: 81.25rem; //1300px
 $small-phone: 20.5rem; //325px
@@ -262,7 +264,7 @@ $button-shadow-active: inset 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.3);
   height: $height;
 }
 @mixin aspect($x, $y) {
-  $padding: unquote(($y / $x) * 100 + "%");
+  $padding: unquote(math.div($y, $x) * 100 + "%");
   padding-top: $padding;
 }
 @mixin placeholder {
