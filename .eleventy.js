@@ -115,44 +115,47 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(buildConfig, {
     sass: [
       {
-        watch: ['./src/css/**/*'],
-        output: ['./docs/css/build/development.css', './pages/_buildoutput/development.css'],
-        sassConfig: {
+        watch: ['src/css/**/*'],
+        output: ['docs/css/build/development.css', 'pages/_buildoutput/development.css'],
+        config: {
           file: './src/css/_index.scss',
-          includePaths: ['./src/css'],
-          sourceMap: false
+          includePaths: ['./src/css']
         },
         purge: [
           {
-            output: (process.env.NODE_ENV === 'development') ? './docs/css/build/home.css' : './pages/_buildoutput/home.css',
-            content: [
-              'pages/_includes/main.njk',
-              'pages/_includes/header.njk',
-              'pages/_includes/footer.njk',
-              'pages/_includes/accordion.html',
-              'pages/**/*.js',
-              'pages/wordpress-posts/banner*.html',
-              'pages/wordpress-posts/homepage-featured.html',
-              'pages/@(translated|wordpress)-posts/@(new|find-services|cali-working|home-header)*.html'
-            ]
+            output: ['docs/css/build/home.css', 'pages/_buildoutput/home.css'],
+            config: {
+              content: [
+                'pages/_includes/main.njk',
+                'pages/_includes/header.njk',
+                'pages/_includes/footer.njk',
+                'pages/_includes/accordion.html',
+                'pages/**/*.js',
+                'pages/wordpress-posts/banner*.html',
+                'pages/wordpress-posts/homepage-featured.html',
+                'pages/@(translated|wordpress)-posts/@(new|find-services|cali-working|home-header)*.html'
+              ]
+            }
           },
           {
-            output: (process.env.NODE_ENV === 'development') ? './docs/css/build/built.css' : './pages/_buildoutput/built.css',
-            content: [
-              'pages/**/*.njk',
-              'pages/**/*.html',
-              'pages/**/*.js',
-              'pages/wordpress-posts/banner*.html',
-              'pages/@(translated|wordpress)-posts/new*.html'
-            ]
+            output: ['docs/css/build/built.css', 'pages/_buildoutput/built.css'],
+            config: {
+              content: [
+                'pages/**/*.njk',
+                'pages/**/*.html',
+                'pages/**/*.js',
+                'pages/wordpress-posts/banner*.html',
+                'pages/@(translated|wordpress)-posts/new*.html'
+              ]
+            }
           }
         ]
       }
     ],
     rollup: [
       {
-        watch: ['./src/js/**/*'],
-        file: './src/js/rollup.config.all.js'
+        watch: ['src/js/**/*'],
+        file: 'src/js/rollup.config.all.js'
       }
     ],
     beforeBuild: () => {

@@ -1,56 +1,108 @@
+
+const { promisify } = require("util");
 const sass = require("sass");
-const fs = require("fs");
+const sassRender = promisify(sass.render);
+const fs = require("fs").promises;
 const rollup = require("rollup");
 const { PurgeCSS, default: purgecss } = require('purgecss')
 const loadConfigFile = require('rollup/dist/loadConfigFile');
 const minimatch = require("minimatch");
 const path = require('path');
 
-const generateSass = (options) => {
-    let defaultSassConfig = {
-        file: './src/css/sass/index.scss',
-        includePaths: ['./src/css'],
-        sourceMap: false
-    };
+const defaultSassConfig = {
+    file: './src/css/sass/index.scss',
+    includePaths: ['./src/css'],
+    sourceMap: false
+};
 
-    let sassOptionsMap = options.map(sassOptions => {
-        sassOptions.sassConfig = { ...defaultSassConfig, ...sassOptions.sassConfig };
-        return sassOptions;
+const hydrateSassOptionSet = sassOptionSet => {
+    sassOptionSet.config = { ...defaultSassConfig, ...sassOptionSet.config };
+
+    // If we need to write source maps, and if we need to write multiple output paths...
+    // ...then we need to create a unique sassOptionSet for each output path.
+    if (sassOptionSet.config.sourceMap) {
+        return sassOptionSet.output.map(outputPath => {
+            sassOptionSet.output = [outputPath];
+            sassOptionSet.config.outFile = outputPath;
+            return sassOptionSet;
+        });
+    }
+
+    return [sassOptionSet];
+}
+
+const buildSassFromConfig = sassOptionSet => {
+    return sassRender(sassOptionSet.config)
+        .then(async result => {
+            let filesToWrite = sassOptionSet.output.flatMap(outputPath => {
+                let filesForThisOutputPath = [];
+
+                console.log(`[CaGov Build System] Writing ${outputPath} from ${sassOptionSet.config.file} (sass)`);
+                filesForThisOutputPath.push(fs.writeFile(outputPath, result.css));
+
+                if (sassOptionSet.config.sourceMap) {
+                    let sourceMapOutputPath = outputPath.replace(/\.css/gi, ".map.css");
+                    console.log(`[CaGov Build System] Writing ${sourceMapOutputPath} from ${outputPath} (sass)`);
+                    filesForThisOutputPath.push(fs.writeFile(sourceMapOutputPath, result.map));
+                }
+
+                return filesForThisOutputPath;
+            });
+
+            await Promise.all(filesToWrite);
+            return sassOptionSet.output;
+        });
+};
+
+const defaultPurgeConfig = {
+    safelist: [/lang$/, /dir$/],
+    extractors: [
+        {
+            extractor: content => content.match(/[A-Za-z0-9-_:\/]+/g) || [],
+            extensions: ['js']
+        }
+    ]
+};
+
+const hydratePurgeOptionSets = (sourceFile, purgeOptionSets) => {
+    return purgeOptionSets.map(purgeOptionSet => {
+        purgeOptionSet.config = { ...defaultPurgeConfig, ...purgeOptionSet.config };
+        purgeOptionSet.config.css = [sourceFile];
+        return purgeOptionSet;
+    });
+};
+
+const purgeCssFromConfig = purgeOptionSet => {
+    return new PurgeCSS().purge(purgeOptionSet.config)
+        .then(async result => {
+            let filesToWrite = purgeOptionSet.output.map(outputPath => {
+                console.log(`[CaGov Build System] Writing ${outputPath} from ${purgeOptionSet.config.css} (purgecss)`);
+                return fs.writeFile(outputPath, result[0].css);
+            });
+
+            await Promise.all(filesToWrite);
+            return purgeOptionSet.output;
+        });
+};
+
+const generateSass = async sassOptions => {
+    let sassOptionSets = sassOptions.flatMap(sassOptionSet => hydrateSassOptionSet(sassOptionSet));
+
+    let sassActions = sassOptionSets.map(sassOptionSet => {
+        let sassAction = buildSassFromConfig(sassOptionSet);
+
+        if (sassOptionSet.hasOwnProperty('purge')) {
+            sassAction.then(async outputPaths => {
+                let purgeOptionSets = hydratePurgeOptionSets(outputPaths[0], sassOptionSet.purge);
+                let purgeActions = purgeOptionSets.map(purgeOptionSet => purgeCssFromConfig(purgeOptionSet));
+                await Promise.all(purgeActions);
+            })
+        }
+
+        sassAction.catch(err => console.log(err));
     });
 
-    sassOptionsMap.forEach(sassOptions => {
-        sassOptions.output.forEach(output => {
-            sassOptions.sassConfig.outFile = output;
-            sass.render(sassOptions.sassConfig, (err, result) => {
-                if (err) {
-                    console.log(err);
-                }
-                console.log(`[CaGov Build System] Writing ${output} from ${sassOptions.sassConfig.file} (sass)`);
-                fs.writeFileSync(output, result.css);
-                if (sassOptions.sassConfig.sourceMap) {
-                    fs.writeFileSync(output.replace(/\.css/gi, ".map.css"), result.map);
-                }
-            });
-        });
-
-        if (sassOptions.purge.length > 0) {
-            sassOptions.purge.forEach(async purge => {
-                const purgeCSSResult = await new PurgeCSS().purge({
-                    content: purge.content,
-                    css: [sassOptions.output[0]],
-                    safelist: [/lang$/, /dir$/],
-                    extractors: [
-                        {
-                            extractor: content => content.match(/[A-Za-z0-9-_:\/]+/g) || [],
-                            extensions: ['js']
-                        }
-                    ]
-                });
-                console.log(`[CaGov Build System] Writing ${purge.output} from ${sassOptions.output[0]} (purgecss)`);
-                fs.writeFileSync(purge.output, purgeCSSResult[0].css);
-            });
-        }
-    }); 
+    await Promise.all(sassActions);
 };
 
 const generateRollup = async options => {
@@ -88,8 +140,7 @@ module.exports = function(eleventyConfig, options = {}) {
             options.beforeBuild();
         }
 
-        generateSass(options.sass);
-        await generateRollup(options.rollup);
+        await Promise.all([generateSass(options.sass), generateRollup(options.rollup)]);
     });
     
     
