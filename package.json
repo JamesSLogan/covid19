@@ -17,6 +17,7 @@
     "awesomplete-es6": "^1.2.2",
     "element-closest-polyfill": "^1.0.4",
     "jest": "^27.0.6",
+    "postcss": "^8.3.8",
     "throttle-debounce": "^3.0.1",
     "url-search-params-polyfill": "^8.1.0",
     "whatwg-fetch": "^3.6.2"

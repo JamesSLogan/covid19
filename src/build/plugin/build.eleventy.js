@@ -8,6 +8,7 @@ const { PurgeCSS, default: purgecss } = require('purgecss')
 const loadConfigFile = require('rollup/dist/loadConfigFile');
 const minimatch = require("minimatch");
 const path = require('path');
+const postcss = require('postcss')
 
 const defaultSassConfig = {
     file: './src/css/sass/index.scss',
@@ -55,7 +56,7 @@ const buildSassFromConfig = sassOptionSet => {
 };
 
 const defaultPurgeConfig = {
-    safelist: [/lang$/, /dir$/],
+    safelist: { deep: [/lang$/, /dir$/] },
     extractors: [
         {
             extractor: content => content.match(/[A-Za-z0-9-_:\/]+/g) || [],
@@ -123,13 +124,28 @@ const generateRollup = async options => {
     }));
 };
 
+const generatePostCss = async options => {
+    fs.readFile('src/app.css', (err, css) => {
+        postcss([autoprefixer, postcssNested])
+            .process(css, { from: 'src/app.css', to: 'dest/app.css' })
+            .then(result => {
+            fs.writeFile('dest/app.css', result.css, () => true)
+            if ( result.map ) {
+                fs.writeFile('dest/app.css.map', result.map.toString(), () => true)
+            }
+        })
+    })
+}
+
 /**
  * 
  * @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig
  */
 module.exports = function(eleventyConfig, options = {}) {
-    eleventyConfig.addWatchTarget(options.sass[0].watch[0]);
-    eleventyConfig.addWatchTarget(options.rollup[0].watch[0]);
+
+    for (watch in [...options.sass.map(s => s.watch), ...options.rollup.map(r => r.watch)]) {
+        eleventyConfig.addWatchTarget(watch);
+    }
 
     eleventyConfig.on('beforeBuild', async function() {
         if (process.env.NODE_ENV === 'development') {
@@ -140,7 +156,10 @@ module.exports = function(eleventyConfig, options = {}) {
             options.beforeBuild();
         }
 
-        await Promise.all([generateSass(options.sass), generateRollup(options.rollup)]);
+        await Promise.all([
+            generateSass(options.sass), 
+            generateRollup(options.rollup)
+        ]);
     });
     
     
