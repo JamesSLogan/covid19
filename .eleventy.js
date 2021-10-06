@@ -152,6 +152,16 @@ module.exports = function (eleventyConfig) {
         ]
       }
     ],
+    postcss: [
+      {
+        watch: ['src/css/**/*'],
+        file: 'src/css/postcss.development.config.js'
+      },
+      {
+        watch: ['src/css/**/*'],
+        file: 'src/css/postcss.home.config.js'
+      },
+    ],
     rollup: [
       {
         watch: ['src/js/**/*'],

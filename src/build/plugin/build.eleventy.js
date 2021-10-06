@@ -8,7 +8,8 @@ const { PurgeCSS, default: purgecss } = require('purgecss')
 const loadConfigFile = require('rollup/dist/loadConfigFile');
 const minimatch = require("minimatch");
 const path = require('path');
-const postcss = require('postcss')
+const postcss = require('postcss');
+const postcssrc = require('postcss-load-config');
 
 const defaultSassConfig = {
     file: './src/css/sass/index.scss',
@@ -106,8 +107,8 @@ const generateSass = async sassOptions => {
     await Promise.all(sassActions);
 };
 
-const generateRollup = async options => {
-    await Promise.all(options.map(rollupConfig => {
+const generateRollup = rollupConfigs => {
+    return Promise.all(rollupConfigs.map(rollupConfig => {
         // Lifted from https://rollupjs.org/guide/en/#programmatically-loading-a-config-file
         return loadConfigFile(path.resolve(process.cwd(), rollupConfig.file)).then(
             async ({ options, warnings }) => {
@@ -124,18 +125,28 @@ const generateRollup = async options => {
     }));
 };
 
-const generatePostCss = async options => {
-    fs.readFile('src/app.css', (err, css) => {
-        postcss([autoprefixer, postcssNested])
-            .process(css, { from: 'src/app.css', to: 'dest/app.css' })
-            .then(result => {
-            fs.writeFile('dest/app.css', result.css, () => true)
-            if ( result.map ) {
-                fs.writeFile('dest/app.css.map', result.map.toString(), () => true)
-            }
-        })
-    })
-}
+const generatePostCss = postcssConfigs => {
+    return Promise.all(postcssConfigs.map(postcssConfig => {
+        const { plugins, ...options } = require(path.resolve(process.cwd(), postcssConfig.file));
+
+        return fs.readFile(options.from).then(css => 
+            postcss(plugins).process(css, options).then(async result => {
+                let filesToWrite = [];
+
+                console.log(`[CaGov Build System] Writing ${options.to} from ${options.from} (postcss)`);
+                filesToWrite.push(fs.writeFile(options.to, result.css, () => true));
+
+                if ( result.map ) {
+                    let sourceMapPath = options.to.replace(/\.css/gi, ".map.css");
+                    console.log(`[CaGov Build System] Writing ${sourceMapPath} from ${options.to} (postcss)`);
+                    filesToWrite.push(fs.writeFile(sourceMapPath, result.map.toString(), () => true));
+                }
+
+                await Promise.all(filesToWrite);
+            })
+        );
+    }));
+};
 
 /**
  * 
@@ -157,7 +168,8 @@ module.exports = function(eleventyConfig, options = {}) {
         }
 
         await Promise.all([
-            generateSass(options.sass), 
+            //generateSass(options.sass), 
+            generatePostCss(options.postcss),
             generateRollup(options.rollup)
         ]);
     });
