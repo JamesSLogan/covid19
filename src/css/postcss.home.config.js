@@ -1,5 +1,6 @@
 const postcssSass = require('@csstools/postcss-sass');
 const purgecss = require('@fullhuman/postcss-purgecss');
+const cssnano = require('cssnano');
 
 module.exports = {
     to: 'pages/_buildoutput/home.css',
@@ -26,6 +27,7 @@ module.exports = {
                     extensions: ['js']
                 }
             ]
-        })
+        }),
+        cssnano
     ]
 };

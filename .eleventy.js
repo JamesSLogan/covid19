@@ -4,7 +4,6 @@ const buildConfig = require('./src/build/plugin/build.eleventy');
 const langData = JSON.parse(fs.readFileSync('pages/_data/langData.json', 'utf8'));
 const dateFormats = JSON.parse(fs.readFileSync('pages/_data/dateformats.json', 'utf8'));
 const { addPreviewModeToEleventy, getPostJsonFromWordpress } = require("@cagov/11ty-serverless-preview-mode");
-const { build } = require('./gulpfile');
 const wordPressSettings = {
   wordPressSite: "https://as-go-covid19-d-001.azurewebsites.net", //Wordpress endpoint
   //previewWordPressTagSlug: 'preview-mode' // optional filter for digest list of preview in Wordpress
@@ -113,45 +112,6 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addPlugin(buildConfig, {
-    sass: [
-      {
-        watch: ['src/css/**/*'],
-        output: ['docs/css/build/development.css', 'pages/_buildoutput/development.css'],
-        config: {
-          file: './src/css/_index.scss',
-          includePaths: ['./src/css']
-        },
-        purge: [
-          {
-            output: ['docs/css/build/home.css', 'pages/_buildoutput/home.css'],
-            config: {
-              content: [
-                'pages/_includes/main.njk',
-                'pages/_includes/header.njk',
-                'pages/_includes/footer.njk',
-                'pages/_includes/accordion.html',
-                'pages/**/*.js',
-                'pages/wordpress-posts/banner*.html',
-                'pages/wordpress-posts/homepage-featured.html',
-                'pages/@(translated|wordpress)-posts/@(new|find-services|cali-working|home-header)*.html'
-              ]
-            }
-          },
-          {
-            output: ['docs/css/build/built.css', 'pages/_buildoutput/built.css'],
-            config: {
-              content: [
-                'pages/**/*.njk',
-                'pages/**/*.html',
-                'pages/**/*.js',
-                'pages/wordpress-posts/banner*.html',
-                'pages/@(translated|wordpress)-posts/new*.html'
-              ]
-            }
-          }
-        ]
-      }
-    ],
     postcss: [
       {
         watch: ['src/css/**/*'],
