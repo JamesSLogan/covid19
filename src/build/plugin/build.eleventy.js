@@ -5,6 +5,17 @@ const minimatch = require("minimatch");
 const path = require('path');
 const postcss = require('postcss');
 
+const buildTypes = ['rollup', 'postcss'];
+
+const allWatchGlobs = (options) =>
+    buildTypes.flatMap(buildType => 
+        options[buildType].flatMap(buildConfig => 
+            buildConfig.watch
+        )
+    ).filter((value, index, collection) => 
+        collection.indexOf(value) === index
+    );
+
 const generateRollup = rollupConfigs => {
     return Promise.all(rollupConfigs.map(rollupConfig => {
         // Lifted from https://rollupjs.org/guide/en/#programmatically-loading-a-config-file
@@ -46,37 +57,69 @@ const generatePostCss = postcssConfigs => {
     }));
 };
 
+const includeCSSUnlessDev = (content, devFilePath) => {
+    if (process.env.NODE_ENV === 'development') {
+        return `<link rel="stylesheet" type="text/css" href="${devFilePath}">`;
+    } else {
+        return content;
+    }
+}
+
+const includeJSUnlessDev = (content, devFilePath) => {
+    if (process.env.NODE_ENV === 'development') {
+        return `<script type="module" src="${devFilePath}"></script>`;
+    } else {
+        return content;
+    }
+}
+
+const processChangedFilesFor = (configSet, changedFiles, callback) => {
+    let configsWithChanges = configSet.filter(config => 
+        changedFiles.some(file => 
+            config.watch.some(watch => 
+                minimatch(file.replace(/^\.\//, ''), watch)
+            )
+        )
+    );
+
+    if (configsWithChanges.length) {
+        callback(configsWithChanges);
+    }
+}
+
+let firstBuild = true;
+
 /**
  * 
  * @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig
  */
-module.exports = function(eleventyConfig, options = {}) {
+module.exports = (eleventyConfig, options = {}) => {
+    eleventyConfig.addPairedShortcode("includecss", includeCSSUnlessDev);
+    eleventyConfig.addPairedShortcode("includejs", includeJSUnlessDev);
 
-    for (watch in [...options.postcss.map(s => s.watch), ...options.rollup.map(r => r.watch)]) {
-        eleventyConfig.addWatchTarget(watch);
-    }
+    allWatchGlobs(options).forEach(watch => eleventyConfig.addWatchTarget(watch));
 
     eleventyConfig.on('beforeBuild', async function() {
         if (process.env.NODE_ENV === 'development') {
-            console.log('Note: Building site in dev mode. Try *npm run start* if you need a full build.');
+            console.log('[CaGov Build System] Note: Building site in dev mode.');
         }
 
         if (typeof options.beforeBuild === Function) {
             options.beforeBuild();
         }
 
-        await Promise.all([
-            generatePostCss(options.postcss),
-            generateRollup(options.rollup)
-        ]);
+        if ((process.env.NODE_ENV !== 'development') || firstBuild) {
+            await Promise.all([
+                generatePostCss(options.postcss),
+                generateRollup(options.rollup)
+            ]);
+
+            firstBuild = false;
+        }
     });
-    
     
     eleventyConfig.on('beforeWatch', async changedFiles => {
-        let cssChanged = changedFiles.some(file => minimatch(file, options.postcss[0].watch[0]));
-        let jsChanged = changedFiles.some(file => minimatch(file, options.rollup[0].watch[0]));
-        if (cssChanged) { generateSass(); }
-        if (jsChanged) { await generateRollup(); }
-    });
-    
+        processChangedFilesFor(options.postcss, changedFiles, generatePostCss);
+        processChangedFilesFor(options.rollup, changedFiles, generateRollup);
+    });   
 }

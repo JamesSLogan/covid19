@@ -1,4 +1,3 @@
-{% import "macros.njk" as macros %}
 {%- set text = pubData[language.id].commonPageLabels.Table1[0] -%}
 
 <script>
@@ -117,68 +116,82 @@ ga('tracker3.send', 'pageview');
 <a href="" class="list-group-item list-group-item-action guide active d-none"></a>
 {% endpagesection -%}
 
-{% macro includeJavascriptByEnv(filename, dev) %}
-	{% if dev %}
-		<script type="module" src="/js/{{filename}}.js"></script>
-	{% else %}
-		<script type="module">
-			{% include "../_buildoutput/" + filename + ".js" %}
-		</script>
-	{% endif %}
-{% endmacro %}
-
-{{ macros.includeJavascriptByEnv('built', env.dev) }}
+{% includejs '/js/built.js' %} 
+	{% include 'pages/_buildoutput/built.js' %}
+{% endincludejs %}
 
 {%- pagesection page, "sign-up-for-county-alerts" %}
-	{{ macros.includeJavascriptByEnv('alerts', env.dev) }}
+	{% includejs '/js/alerts.js' %}
+		{% include 'pages/_buildoutput/alerts.js' %}
+	{% endincludejs %}
 {% endpagesection -%}
 
 {%- pagesection page, "telehealth" %}
-	{{ macros.includeJavascriptByEnv('telehealth', env.dev) }}
+	{% includejs '/js/telehealth.js' %}
+		{% include 'pages/_buildoutput/telehealth.js' %}
+	{% endincludejs %}
 {% endpagesection -%}
 
 {%- pagesection page, "plasma" %}
-	{{ macros.includeJavascriptByEnv('plasma', env.dev) }}
+	{% includejs '/js/plasma.js' %}
+		{% include 'pages/_buildoutput/plasma.js' %}
+	{% endincludejs %}
 {% endpagesection -%}
 
 {# {%- pagesection page, "safer-economy" %}
-	{{ macros.includeJavascriptByEnv('roadmap', env.dev) }}
+	{% includejs '/js/roadmap.js' %}
+		{% include 'pages/_buildoutput/roadmap.js' %}
+	{% endincludejs %}
 {% endpagesection -%} #}
 
 {%- pagesection page, "state-dashboard" %}
 	<script type="module" src="https://d3js.org/d3.v6.min.js"></script><!-- had some trouble importing this, error circular dependencies after npm install so including here -->
-	{{ macros.includeJavascriptByEnv('dashboard', env.dev) }}
+	{% includejs '/js/dashboard.js' %}
+		{% include 'pages/_buildoutput/dashboard.js' %}
+	{% endincludejs %}
 {% endpagesection -%}
 
 {%- pagesection page, "v5-state-dashboard" %}
 	<script type="module" src="https://d3js.org/d3.v6.min.js"></script><!-- had some trouble importing this, error circular dependencies after npm install so including here -->
-	{{ macros.includeJavascriptByEnv('dashboard', env.dev) }}
+	{% includejs '/js/dashboard.js' %}
+		{% include 'pages/_buildoutput/dashboard.js' %}
+	{% endincludejs %}
 {% endpagesection -%}
 
 {%- pagesection page, "state-dashboard-sparklines" %}
 	<script type="module" src="https://d3js.org/d3.v6.min.js"></script><!-- had some trouble importing this, error circular dependencies after npm install so including here -->
-	{{ macros.includeJavascriptByEnv('state-dashboard-sparklines', env.dev) }}
+	{% includejs '/js/state-dashboard-sparklines.js' %}
+		{% include 'pages/_buildoutput/state-dashboard-sparklines.js' %}
+	{% endincludejs %}
 {% endpagesection -%}
 
 
 {%- pagesection page, "equity" %}
 	<script type="module" src="https://d3js.org/d3.v6.min.js"></script><!-- had some trouble importing this, error circular dependencies after npm install so including here -->
-	{{ macros.includeJavascriptByEnv('equitydash', env.dev) }}
+	{% includejs '/js/equitydash.js' %}
+		{% include 'pages/_buildoutput/equitydash.js' %}
+	{% endincludejs %}
 {% endpagesection -%}
 
 {%- pagesection page, "vaccination-progress-data" %}
 	<script type="module" src="https://d3js.org/d3.v6.min.js"></script><!-- had some trouble importing this, error circular dependencies after npm install so including here -->
-	{{ macros.includeJavascriptByEnv('vaccines', env.dev) }}
+	{% includejs '/js/vaccines.js' %}
+		{% include 'pages/_buildoutput/vaccines.js' %}
+	{% endincludejs %}
 {% endpagesection -%}
 
 {%- pagesection page, "vaccines" %}
 	<script type="module" src="https://d3js.org/d3.v6.min.js"></script><!-- had some trouble importing this, error circular dependencies after npm install so including here -->
-	{{ macros.includeJavascriptByEnv('vaccines', env.dev) }}
+	{% includejs '/js/vaccines.js' %}
+		{% include 'pages/_buildoutput/vaccines.js' %}
+	{% endincludejs %}
 {% endpagesection -%}
 {%- pagesection page, "charts-sandbox" %}
     <script src="https://code.highcharts.com/highcharts.js"></script>
 	<script type="module" src="https://d3js.org/d3.v6.min.js"></script><!-- had some trouble importing this, error circular dependencies after npm install so including here -->
-	{{ macros.includeJavascriptByEnv('charts-sandbox', env.dev) }}
+	{% includejs '/js/charts-sandbox.js' %}
+		{% include 'pages/_buildoutput/charts-sandbox.js' %}
+	{% endincludejs %}
 {% endpagesection -%}
 
 <script nomodule src="https://d3js.org/d3.v5.min.js"></script><!-- lot of transpilation issues, using older d3 for ie -->

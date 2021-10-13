@@ -1,5 +1,4 @@
 {% extends "layout.njk" %}
-{% import "macros.njk" as macros %}
 {%- set text = pubData[language.id].commonPageLabels.Table1[0] -%}
 
 {% block title %} 
@@ -20,7 +19,9 @@
 {% endblock %}
 
 {% block headCSS %}
-	{{ macros.includeCSSByEnv("built", env.dev) }}
+	{% includecss '/css/build/development.css' %}
+		{% include 'pages/_buildoutput/built.css' %}
+	{% endincludecss %}
   {{ super() }}
 {% endblock %}
 

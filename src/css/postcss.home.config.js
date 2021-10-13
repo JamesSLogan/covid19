@@ -11,14 +11,14 @@ module.exports = {
         }),
         purgecss({
             content: [
-              'pages/_includes/main.njk',
-              'pages/_includes/header.njk',
-              'pages/_includes/footer.njk',
-              'pages/_includes/accordion.html',
-              'pages/**/*.js',
-              'pages/wordpress-posts/banner*.html',
-              'pages/wordpress-posts/homepage-featured.html',
-              'pages/@(translated|wordpress)-posts/@(new|find-services|cali-working|home-header)*.html'
+                'pages/_includes/main.njk',
+                'pages/_includes/header.njk',
+                'pages/_includes/footer.njk',
+                'pages/_includes/accordion.html',
+                'pages/**/*.js',
+                'pages/wordpress-posts/banner*.html',
+                'pages/wordpress-posts/homepage-featured.html',
+                'pages/@(translated|wordpress)-posts/@(new|find-services|cali-working|home-header)*.html'
             ],
             safelist: { deep: [/lang$/, /dir$/] },
             extractors: [

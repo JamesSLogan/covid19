@@ -84,6 +84,24 @@ function writeMenuJson(lang) {
   fs.writeFileSync(outputFileName, JSON.stringify(singleLangMenu), 'utf8');
 }
 
+let developmentPostCssConfigs = [
+  {
+    watch: ['src/css/**/*'],
+    file: 'src/css/postcss.development.config.js'
+  }
+];
+
+let productionPostCssConfigs = [
+  {
+    watch: ['src/css/**/*'],
+    file: 'src/css/postcss.home.config.js'
+  },
+  {
+    watch: ['src/css/**/*'],
+    file: 'src/css/postcss.built.config.js'
+  }
+];
+
 /**
  * @param {import("@11ty/eleventy/src/UserConfig")} eleventyConfig 
  */
@@ -112,16 +130,9 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addPlugin(buildConfig, {
-    postcss: [
-      {
-        watch: ['src/css/**/*'],
-        file: 'src/css/postcss.development.config.js'
-      },
-      {
-        watch: ['src/css/**/*'],
-        file: 'src/css/postcss.home.config.js'
-      },
-    ],
+    postcss: (process.env.NODE_ENV === 'development') 
+      ? developmentPostCssConfigs 
+      : productionPostCssConfigs,
     rollup: [
       {
         watch: ['src/js/**/*'],

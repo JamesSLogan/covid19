@@ -47,7 +47,6 @@ formatNumber(tags,1)-%}
 
 
 {% extends "layout.njk" %}
-{% import "macros.njk" as macros %}
 
 {% block meta %}
   <meta name="keywords" content="covid-19 california, covid-19 ca, covid-19 volunteer, covid-19 testing, covid-19 testing costs, covid-19 testing california, covid-19 toolkit, stay home save lives, california health corps, covid-19 immigrants, covid-19 financial help, covid-19 medi-cal, covid-19 healthcare, covid-19 alerts"/>
@@ -57,7 +56,9 @@ formatNumber(tags,1)-%}
 {% endblock %}
 
 {% block headCSS %}
-	{{ macros.includeCSSByEnv("home", env.dev) }}
+	{% includecss '/css/build/development.css' %}
+		{% include 'pages/_buildoutput/home.css' %}
+	{% endincludecss %}
 	{{ super() }}
 {% endblock %}
 
@@ -361,6 +362,8 @@ getSVG('/img/generated/sparklines/sparkline-vaccines.svg','.sparkline-vax');
 	</div>
 	<div class="popup_background"></div>
 	<!-- end video overlay -->
-	{{ macros.includeJavascriptByEnv('video', env.dev) }}
+	{% includejs '/js/video.js' %}
+		{% include 'pages/_buildoutput/video.js' %}
+	{% endincludejs %}
 
 {% endblock %}
