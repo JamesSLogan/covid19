@@ -2,7 +2,7 @@
 
 ## Includes
 
-We can put some test steps in separate files and reuse them in multiple places. An example is in test/includes/search.mjs:
+We can put some test steps in separate files and reuse them in multiple places. An example is in <a href="test/includes/search.mjs">test/includes/search.mjs</a>:
 
 The snippet submits the search form:
 ```
