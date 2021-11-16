@@ -14,7 +14,7 @@ async function search(page) {
 export default search;
 ```
 
-An example of it being used is in test/includes.spec.mjs:
+An example of it being used is in <a href="test/includes.spec.mjs">test/includes.spec.mjs</a>:
 - Import the file:
 ```
 import search from './includes/search.mjs';
